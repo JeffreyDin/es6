@@ -1,0 +1,53 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="utf-8">
+    <meta http-equiv="x-ua-compatible" content="ie=edge">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0, maximum-scale=1.0, user-scalable=no">
+    <title>注册</title>
+    <link rel="stylesheet" href="https://unpkg.com/mobi.css/dist/mobi.min.css">
+    <style>
+        .errorlist {
+            color: red;
+        }
+    </style>
+</head>
+<body>
+<div class="flex-center">
+    <div class="container">
+        <div class="flex-center">
+            <div class="unit-1-2 unit-1-on-mobile">
+                <h3>注册</h3>
+                <!-- mobi.css 提供样式支持 -->
+                <!-- 使用了 {% url %} 模板标签，防止 URL 硬编码 -->
+                <form class="form" action="{% url 'account:register' %}" method="post">
+                    <!--  {% csrf_token %} 模板标签。这个标签的用途就是用于防止跨站请求伪造攻击 -->
+                    {% csrf_token %}
+                    <!-- 表单 form（这是一个模板变量，是 RegisterForm 的一个实例，我们在 register 视图函数中将它传递给模板的。）
+                        进行循环就可以得到表单的各个控件： -->
+                        <!-- {{ field.label_tag }} 是相应控件的 label 标签
+                        {{ field }} 是相应的表单控件
+                        {{ field.errors }} 是表单的错误（如果有的话）
+                        {{ field.help_text|safe }} 是控件相关的帮助信息 -->
+                    {% for field in form %}
+                        {{ field.label_tag }}
+                        {{ field }}
+                        {{ field.errors }}
+                        {% if field.help_text %}
+                            <p class="help text-small text-muted">{{ field.help_text|safe }}</p>
+                        {% endif %}
+                    {% endfor %}
+                    <button type="submit" class="btn btn-primary btn-block">注册</button>
+                </form>
+                <!-- mobi.css 提供样式支持 结束 -->
+
+
+                <div class="flex-center top-gap text-small">
+                    <a href="/account/login/">已有账号登录</a>
+                </div>
+            </div>
+        </div>
+    </div>
+</div>
+</body>
+</html>
