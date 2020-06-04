@@ -123,3 +123,6 @@ apps/django_python3_ldap
 
 # Project exclude paths
 /node_modules/
+.vscode
+000html
+006lib
